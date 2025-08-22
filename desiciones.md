@@ -1,67 +1,97 @@
-📋 Tareas que debés cumplir
-1. Configurar tu entorno y preparar tu repositorio
-Cloná o forkeá el repositorio base https://github.com/ingsoft3ucc/2025_TP01_RepoBase
-Para este paso, forkee en mi cuenta el repositorio "https://github.com/ingsoft3ucc/2025_TP01_RepoBase" con el nombre "TP1-ING3-Cuozzo"
-Luego hice git clone https://github.com/soficuozzo/TP1-ING3-Cuozzo.git en mi git bash
 
-Configurá tu identidad y dejá constancia en el archivo decisiones.md de cómo lo hiciste.
-2. Desarrollar una funcionalidad
-Trabajá en una rama separada de main.
-Con el comando git branch cree "RamaSofi"
-Me movi hacia esa rama con git checkout RamaSofi
+----------------------------------------------------------------------------------
 
+1) Configuración del entorno y preparación del repositorio
+Repositorio base: fork del repo ingsoft3ucc/2025_TP01_RepoBase.
+Fork creado en mi cuenta como: soficuozzo/TP1-ING3-Cuozzo.
+Clonado local:
+git clone https://github.com/soficuozzo/TP1-ING3-Cuozzo.git
+cd TP1-ING3-Cuozzo
+Luego configure mi identidad de Git: 
+git config --global user.name "Sofía Cuozzo"
+git config --global user.email "2313251@ucc.edu.ar"
 
-Hacé al menos 2 commits atómicos con mensajes claros.
-Fui a visual studio code cree el archivo funcion.py y codie una funcion para sumar dos numeros
-Luego desde el git bash, realice git status para ver que el archivo funcion.py este dentro de la carpte TP1-ING3-Cuozzo
-git add funcion.py para agregarlos al repo 
+2) Desarrollo de una funcionalidad
+Rama de trabajo:
+Creé y usé una rama separada de main para aislar cambios.
+git checkout -b RamaSofi
+Implementación:
+En Visual Studio Code creé funcion.py con una función de suma.
+Commit 1 (atómico): crear función base.
+git add funcion.py
 git commit -m "Agrego funcion sumar dos numeros"
-Luego modifique el archivo, le agregue un tercer numero 
-Y repeti los mismos pasos. En git commit -m "Modifico funcion sumar, ahora suma 3 numeros"
+Commit 2
+git add funcion.py
+git commit -m "Modifico funcion sumar, ahora suma 3 numeros"
+Justificación (por qué esta rama / por qué estos commits):
+Utilice esos 2 commits porque considere que describian de manera concreta y correcta las funciones que habia desarrollado. 
+Por otro lad, use mi rama de desarrolo ya que es mas especifica y mantiene main estable y permite que la integracion la pueda controlar con Pull Request para evitar problema
 
-Justificá la estrategia que usaste (¿por qué esa rama? ¿por qué esos commits?).
+3) Corrección de error (simulado) y hotfix
+3.1 Me cambié a main y provoqué un error en app.js (elimine al llamado de la funcion saludar).
+git checkout main
+Edite el archivo en visual y luego:
+git add .
+git commit -m "Simule un error no llamando a la funcion"
+git push origin main
 
-3. Corregir un error (simulado) y aplicar el fix
-Simulá un error en main y resolvelo en una rama hotfix.
-Aplicá el fix a main y también a tu rama de desarrollo.
-Elegí cómo lo integrás (merge, cherry-pick, etc.) y explicalo en decisiones.md.
+3.2 Cree y me cambie a la rama hotfix para solucionar el error
+git checkout -b hotfix/arreglar-llamado-saludar
+En el visual studio code corregi el error
+git add .
+git commit -m "fix: restaurar llamada a saludar (corrección hotfix)"
+git push -u origin hotfix/arreglar-llamado-saludar
 
-Antes de comenzar con este paso, realice git push origin main para que cualquier cambio que haya faltado subirse a RamaSofi se suba
-(Agregar los problemas que tuve estan en el doc de google)
-Me fui a la rama main con git checkout main y ahi edite el archivo app.js para generar un error (borre cuando llama a la funcion saludar) luego hice un git commit "Simule un error no llamando a la funcion" luego hice git push
-Cree y me cambie a la rama hot fix con git checkout -b hotfix
-Luego para pushear en esta rama, como era la primera vez, use git push -u origin hotfix
-Luego para pasar estos cambios de la rama hotfix a la rama main use git checkout main
-Y despues git merge hotfix
-Lo hice con cherry pick y para salir use el comando $ git cherry-pick --skip
-Al estar en duda sobre si el cambio de la rama hotfix tambien se habia aplicado a mi rama de desarrollo la IA me dio este comando $ git log --oneline --graph --decorate
-El resultado: 
-*   d757e1e (HEAD -> RamaSofi, origin/RamaSofi) Merge branch 'main' into RamaSofi
-|\
-| * 2cac91d (origin/main, origin/hotfix, origin/HEAD, main, hotfix) Solucione problema en el archivo app.js. Ahora si llamo a la funcion saludar
-| * b7f07fc Simule un error no llamando a la funcion
-* | 12191b4 Modifico funcion sumar. Ahora suma 3 numeros
-* | 414e864 Agrego funcion sumar dos numeros
-|/
-* cf8df37 Initial commit: Setup base repository structure
-Esto significa que: hice un merge de main en RamaSofi (Merge branch 'main' into RamaSofi), por eso el fix ya estaba en mi rama aunque el cherry-pick haya quedado vacío.
+3.3 Integrar el fix a main y a la rama de desarrollo
+Llevar el hotfix a main
+Como el fix se hizo en la rama hotfix y no está en main, hago cherry-pick del commit del fix:
 
+git checkout main
+git cherry-pick 2cac91d
+git push origin main
 
+Sincronizar también la rama de desarrollo (RamaSofi)
+git checkout RamaSofi
+git cherry-pick 2cac91d
+git push origin RamaSofi
 
-Switched to a new branch 'hotfix'
+4) Pull Request (PR)
 
-
-4. Hace un PR y aceptalo
-Me asegure de subir todo lo que tenia en mi rama de desarrollo (RamaSofi) a GitHub con git push origin RamaSofi
-Luego en Github me aparecio Compare & pull request para la rama RamaSofi.
-Hice clic ahí, puse un título y una descripción clara del PR "Rama Sofi"
-Creé el PR.
+Subí mi rama de desarrollo:
+git push origin RamaSofi
+En GitHub, creé el PR RamaSofi → main (botón Compare & pull request).
+Agregué título "RamaSofi"
 Acepté (merge) el PR en GitHub.
-Después de aceptarlo, traje los cambios a mi computadora:
+Actualicé mi main local:
 git checkout main
 git pull origin main
+Justificación: el PR permite revisión previa, comentarios, checks automáticos (si aplica) y deja trazabilidad del cambio.
 
+5) Versión etiquetada
+Marqué la versión estable como v1.0 (tag anotado):
+git checkout main
+git tag -a v1.0 -m "TP1 Terminado"
+git push origin v1.0
+Convención usada: prefijo v + 1.x.x
+Para fixes menores futuros, usaría v1.0.1.
+Para funcionalidades nuevas compatibles, v1.1.
+Para cambios incompatibles, v2.0.
 
-5. Crear una versión etiquetada
-Marcá una versión estable con el tag v1.0.
-Explicá en decisiones.md qué convenciones usaste y por qué.
+6) Problemas encontrados y cómo los resolví
+
+Cherry-pick vacío: intenté git cherry-pick del commit del hotfix hacia RamaSofi, pero como ya se había hecho merge de main en RamaSofi, el fix ya estaba aplicado. Resultado: cherry-pick sin cambios → resuelto con git cherry-pick --skip.
+Sincronización de ramas: usé git merge main estando en RamaSofi para traer correcciones y evitar divergencias.
+Verificación del estado para que asegurarme que lo arreglado en main tambien se haya arreglado en RamaSofi
+git log --oneline --graph --all --decorate
+
+El log fue el siguiente:
+
+*   d757e1e (HEAD -> RamaSofi, origin/RamaSofi) Merge branch 'main' into RamaSofi
+|\
+| * 2cac91d (origin/main, origin/hotfix, origin/HEAD, main, hotfix) fix: solución en app.js (restaurar llamada a saludar)
+| * b7f07fc bug: simular error no llamando a la función
+* | 12191b4 feat: extender sumar para 3 números
+* | 414e864 feat: agregar función sumar dos números
+|/
+* cf8df37 Initial commit
+Esto me indicaba que le fix tambien se habia realizado en RamaSofi
