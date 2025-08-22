@@ -52,6 +52,16 @@ Switched to a new branch 'hotfix'
 
 
 4. Hace un PR y aceptalo
+Me asegure de subir todo lo que tenia en mi rama de desarrollo (RamaSofi) a GitHub con git push origin RamaSofi
+Luego en Github me aparecio Compare & pull request para la rama RamaSofi.
+Hice clic ahí, puse un título y una descripción clara del PR "Rama Sofi"
+Creé el PR.
+Acepté (merge) el PR en GitHub.
+Después de aceptarlo, traje los cambios a mi computadora:
+git checkout main
+git pull origin main
+
+
 5. Crear una versión etiquetada
 Marcá una versión estable con el tag v1.0.
 Explicá en decisiones.md qué convenciones usaste y por qué.
